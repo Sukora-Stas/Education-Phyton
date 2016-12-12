@@ -46,7 +46,7 @@ while answer != 'Q' or 'q':
             while i < len(file_list):
                 newfile = file_list[i] + '.dupl'
                 shutil.copy(file_list[i], newfile)
-                i = i + 1
+                i += 1
         elif do == 6:
             print("Duplication chosen files in current directory")
             file_list = os.listdir()
@@ -66,7 +66,7 @@ while answer != 'Q' or 'q':
             print("which file would you like delete?")
             while i < len(file_list):
                 print('[', i, '] - ' + file_list[i])
-                i = i + 1
+                i += 1
             i = int(input("schoose nomber: "))
             os.remove(file_list[i])
             print("File is deleted from the current directory")
