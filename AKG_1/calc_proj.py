@@ -35,7 +35,7 @@ class Morphing:
 
     def get_coord_finish_figure(self):
         data = self.get_coordinates_figure(self.finish_count_figure, self.finish_position)
-        #data.reverse()
+        # data.reverse()
         return data
 
     def get_current_coord(self, points_start, points_finish, current_step, steps):
