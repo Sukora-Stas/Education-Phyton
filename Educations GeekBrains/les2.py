@@ -18,7 +18,8 @@ while answer != 'Q' or 'q':
         print("I can:")
         print("[1] - show files list")
         print(
-            "[2] - show information about sistem: name carrent directiry, platform (OS), coding of file system, user login, number CPU")
+            "[2] - show information about sistem: name carrent directiry, platform (OS), coding of file system, "
+            "user login, number CPU")
         print("[3] - show process list")
         print("[4] - catalog instaling python")
         print("[5] - duplication all files in current directory")
@@ -54,7 +55,7 @@ while answer != 'Q' or 'q':
             print("Which file would you like duplication?")
             while i < len(file_list):
                 print('[', i, '] - ' + file_list[i])
-                i = i + 1
+                i += 1
             i = int(input("Schoose nomber: "))
             newfile = file_list[i] + '.dupl'
             shutil.copy(file_list[i], newfile)
