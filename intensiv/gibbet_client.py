@@ -1,8 +1,6 @@
-
 # Клиент игры "Виселица"
 
 import socket
-import sys
 
 HOST = 'localhost'
 PORT = 9999
@@ -24,27 +22,25 @@ if data[0] == 'GUESS':
         if x == 'q':
             break
 
-        sock.sendall(bytes("TRY;{}".format(x), 'utf-8'))    
+        sock.sendall(bytes("TRY;{}".format(x), 'utf-8'))
         received = sock.recv(1024).decode()
         data = received.split(';')
         if data[0] == 'TRUE':
             print('Вы угадали!')
             break
         elif data[0] == 'FAIL':
-            print('Вы проиграли!')    
+            print('Вы проиграли!')
             break
         elif data[0] == 'FALSE':
             if data[2] == '<':
-                print('Загаданное число меньше.'\
-                         ' У Вас осталось попыток: {}'.format(data[1]))
+                print('Загаданное число меньше.' \
+                      ' У Вас осталось попыток: {}'.format(data[1]))
             elif data[2] == '>':
-                print('Загаданное число больше.'\
-                        ' У Вас осталось попыток: {}'.format(data[1]))
+                print('Загаданное число больше.' \
+                      ' У Вас осталось попыток: {}'.format(data[1]))
         else:
-            print('Неизвестный ответ сервера')        
+            print('Неизвестный ответ сервера')
             break
 
-sock.sendall(bytes('GOODBYE','utf-8'))
-sock.close()            
-
-
+sock.sendall(bytes('GOODBYE', 'utf-8'))
+sock.close()

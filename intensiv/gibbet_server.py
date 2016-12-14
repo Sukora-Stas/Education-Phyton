@@ -1,4 +1,3 @@
-
 # Сервер игры Виселица
 
 import random
@@ -7,13 +6,16 @@ import socketserver
 HOST = 'localhost'
 PORT = 9999
 
-class GibbetHandler(socketserver.BaseRequestHandler):
 
-    def handle(self):
+class GibbetHandler(socketserver.BaseRequestHandler):
+    def __init__(self, request, client_address, server):
+        super().__init__(request, client_address, server)
         self.data = self.request.recv(1024).decode()
 
-        print('Клиент {} сообщает: {}'.format(self.client_address[0], 
-                self.data))
+    def handle(self):
+
+        print('Клиент {} сообщает: {}'.format(self.client_address[0],
+                                              self.data))
 
         x = random.randint(1, 100)
 
@@ -21,7 +23,6 @@ class GibbetHandler(socketserver.BaseRequestHandler):
             self.request.sendall(bytes('GUESS;1;100', 'utf-8'))
             try_count = 10
             while True:
-                self.data = self.request.recv(1024).decode()
                 resp = self.data.split(';')
                 print(resp)
 
@@ -39,32 +40,31 @@ class GibbetHandler(socketserver.BaseRequestHandler):
                         else:
                             if x < int(resp[1]):
                                 self.request.sendall(bytes('FALSE;{};<'.format(try_count),
-                                     'utf-8'))
+                                                           'utf-8'))
                             else:
                                 self.request.sendall(bytes('FALSE;{};>'.format(try_count),
-                                 'utf-8'))
+                                                           'utf-8'))
 
                 elif resp[0] == 'GOODBYE':
                     self.request.sendall(bytes('GOODBYE', 'utf-8'))
-                    break  
+                    break
                 else:
                     print('Неизвестный запрос от пользователя')
-                    break                  
-                    
+                    break
 
 
-                # TRY;10
 
-                # TRUE
-                # FALSE;try_count;<
-                # FALSE;try_count;>
-                # FAIL
+                    # TRY;10
+                    # TRUE
+                    # FALSE;try_count;<
+                    # FALSE;try_count;>
+                    # FAIL
         else:
-            print('Неизвестный запрос от клиента.')    
+            print('Неизвестный запрос от клиента.')
+
 
 server = socketserver.TCPServer((HOST, PORT), GibbetHandler)
 
 print('Сервер игры Виселица запущен')
 
 server.serve_forever()
-
