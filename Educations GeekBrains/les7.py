@@ -3,8 +3,23 @@
 import turtle
 import random
 
-turtle.circle(30)
+
+def gotoxy(x, y):
+    turtle.penup()
+    turtle.goto(0, 0)
+    turtle.pendown()
+
+
 turtle.speed(0)
+
+gotoxy(0, 0)
+turtle.circle(80)
+gotoxy(0, 160)
+turtle.fillcolor('red')
+turtle.begin_fill()
+turtle.circle(random.randrange(1, 100))
+turtle.end_fill()
+
 
 answer = ''
 while answer != 'n':
